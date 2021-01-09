@@ -209,6 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 247356134}
   - component: {fileID: 247356133}
+  - component: {fileID: 247356135}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: GameHandler
@@ -277,6 +278,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &247356135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247356132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d171a898841c1640ba273c9c45da1eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RandomShardPrefab: {fileID: 5982198145292701148, guid: e0c155897e9be3d4e977fd861db149f3,
+    type: 3}
+  Panel: {fileID: 1255303419}
+  shardsSprites:
+  - {fileID: 21300000, guid: e4fca018f9129d7439e066ee092ec9c4, type: 3}
+  - {fileID: 21300000, guid: c9bf0262590d3e14a98f8ae7a0e33012, type: 3}
+  - {fileID: 21300000, guid: f892f9aaa5f07f9418ce4d49a54fe724, type: 3}
+  - {fileID: 21300000, guid: 4a2cb05b1705e4a4ebbf045edf15491c, type: 3}
+  - {fileID: 21300000, guid: 85165937782de744d8bb59006356b9cd, type: 3}
+  - {fileID: 21300000, guid: 7816b7ef972831149ab48a22da99a8aa, type: 3}
+  - {fileID: 21300000, guid: 77a5b5375625ab9438b1575129443952, type: 3}
+  - {fileID: 21300000, guid: 7be37c08499633449b3d1e56c751508a, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,19 +1879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277bf8755f2883c44bdd339448126966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomShardPrefab: {fileID: 5982198145292701148, guid: e0c155897e9be3d4e977fd861db149f3,
-    type: 3}
-  Panel: {fileID: 1255303419}
-  shardsSprites:
-  - {fileID: 21300000, guid: e4fca018f9129d7439e066ee092ec9c4, type: 3}
-  - {fileID: 21300000, guid: c9bf0262590d3e14a98f8ae7a0e33012, type: 3}
-  - {fileID: 21300000, guid: f892f9aaa5f07f9418ce4d49a54fe724, type: 3}
-  - {fileID: 21300000, guid: 4a2cb05b1705e4a4ebbf045edf15491c, type: 3}
-  - {fileID: 21300000, guid: 85165937782de744d8bb59006356b9cd, type: 3}
-  - {fileID: 21300000, guid: 7816b7ef972831149ab48a22da99a8aa, type: 3}
-  - {fileID: 21300000, guid: 77a5b5375625ab9438b1575129443952, type: 3}
-  - {fileID: 21300000, guid: 7be37c08499633449b3d1e56c751508a, type: 3}
-  - {fileID: 21300000, guid: 200e9e4d36682ea469f5394c3e98cb32, type: 3}
 --- !u!114 &1634070069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1891,7 +1903,7 @@ MonoBehaviour:
   CostSynergy: 0
   SynergyCrystals: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   SynergyShards: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  CostSynergyCrystals: 
+  CostSynergyCrystals: []
 --- !u!114 &1634070070
 MonoBehaviour:
   m_ObjectHideFlags: 0
