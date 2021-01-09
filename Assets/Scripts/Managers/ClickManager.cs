@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+//
 public class ClickManager : MonoBehaviour
 {
     private DataManager dataManager;
