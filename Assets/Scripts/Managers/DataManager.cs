@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class DataManager : MonoBehaviour
 {
+//test
     public long Synergy, SynergyOnClick, 
         PrimoCrystal, UniversalCrystal, UniversalShard, Gems,
         MiningPower, MiningLvl, MiningExp, CostSynergy;
