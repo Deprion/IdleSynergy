@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 public class DataManager : MonoBehaviour
 {
-//test
     public long Synergy, SynergyOnClick, 
         PrimoCrystal, UniversalCrystal, UniversalShard, Gems,
-        MiningPower, MiningLvl, MiningExp, CostSynergy;
+        MiningPower, MiningLvl, CostSynergy, DroppedShards;
+    public llong MiningExp = new llong(0, 10);
     public long[] SynergyCrystals;
     public long[] SynergyShards;
-    public float[] CostSynergyCrystals;
+    public long[] CostSynergyCrystals;
     public DateTime FreeChest, PastTime;
     private string DataPath;
     private void Awake()
@@ -23,9 +22,10 @@ public class DataManager : MonoBehaviour
     private class Data
     {
         public long synergy, synergyOnClick, primoCrystal, universalCrystal,
-            universalShard, gems, miningPower, miningLvl, miningExp, costSynergy;
+            universalShard, gems, miningPower, miningLvl, costSynergy, droppedShards;
+        public llong miningExp;
         public long[] synergyCrystals, synergyShards;
-        public float[] costSynergyCrystals;
+        public long[] costSynergyCrystals;
         public DateTime pastTime, freeChestTimeLeft;
         public Data(DataManager dt) 
         {
@@ -39,6 +39,7 @@ public class DataManager : MonoBehaviour
             miningLvl = dt.MiningLvl;
             miningExp = dt.MiningExp;
             costSynergy = dt.CostSynergy;
+            droppedShards = dt.DroppedShards;
             synergyCrystals = dt.SynergyCrystals;
             synergyShards = dt.SynergyShards;
             costSynergyCrystals = dt.CostSynergyCrystals;
@@ -50,9 +51,7 @@ public class DataManager : MonoBehaviour
     {
         if (File.Exists(DataPath))
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.OpenRead(DataPath);
-            Data data = (Data)bf.Deserialize(file);
+            Data data = JsonUtility.FromJson<Data>(File.ReadAllText(DataPath));
             Synergy = data.synergy;
             SynergyOnClick = data.synergyOnClick;
             PrimoCrystal = data.primoCrystal;
@@ -63,29 +62,26 @@ public class DataManager : MonoBehaviour
             MiningLvl = data.miningLvl;
             MiningExp = data.miningExp;
             CostSynergy = data.costSynergy;
+            DroppedShards = data.droppedShards;
             SynergyCrystals = data.synergyCrystals;
             SynergyShards = data.synergyShards;
             CostSynergyCrystals = data.costSynergyCrystals;
             FreeChest = data.freeChestTimeLeft;
             PastTime = DateTime.Now;
-            file.Close();
         }
         else 
         {
             SynergyOnClick = 1;
             MiningPower = 1;
             CostSynergy = 10;
-            CostSynergyCrystals = new float[] { 10, 10, 10, 10, 10, 10, 10, 10 };
+            CostSynergyCrystals = new long[] { 10, 10, 10, 10, 10, 10, 10, 10 };
             FreeChest = DateTime.Now.AddMinutes(30);
         }
     }
     public void SaveData()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(DataPath, FileMode.OpenOrCreate);
         Data data = new Data(this);
-        bf.Serialize(file, data);
-        file.Close();
+        File.WriteAllText(DataPath, JsonUtility.ToJson(data));
     }
     private void OnApplicationFocus(bool focus)
     {

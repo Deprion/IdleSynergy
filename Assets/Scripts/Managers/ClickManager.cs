@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-//
 public class ClickManager : MonoBehaviour
 {
     private DataManager dataManager;
@@ -16,6 +15,8 @@ public class ClickManager : MonoBehaviour
     }
     public void ClickShards()
     {
-        gameManager.RandomShard();
+        if(dataManager.Synergy >= dataManager.CostSynergy &&
+            dataManager.MiningExp + dataManager.MiningPower) gameManager.RandomShard();
+        EventManager.OnChaneMiningExp();
     }
 }

@@ -9,16 +9,17 @@ public class GameManager : MonoBehaviour
     {
         dt = GetComponent<DataManager>();
         gh = GameObject.FindGameObjectWithTag("GameHandler").GetComponent<GameHandler>();
+        CalculateShardPrice();
     }
     public void CreateCrystals(int type, int amount)
     {
         if (dt.PrimoCrystal >= amount * (dt.CostSynergyCrystals[type]/10) && 
             dt.SynergyShards[type] >= amount * dt.CostSynergyCrystals[type])
         {
-            dt.PrimoCrystal -= (long)(amount * (dt.CostSynergyCrystals[type] / 10));
-            dt.SynergyShards[type] -= (long)(amount * dt.CostSynergyCrystals[type]);
+            dt.PrimoCrystal -= amount * (dt.CostSynergyCrystals[type] / 10);
+            dt.SynergyShards[type] -= amount * dt.CostSynergyCrystals[type];
             dt.SynergyCrystals[type] += amount;
-            dt.CostSynergyCrystals[type] += amount * 0.1f;
+            dt.CostSynergyCrystals[type] += amount;
             EventManager.OnBuy(type);
         }
     }
@@ -35,7 +36,8 @@ public class GameManager : MonoBehaviour
             int num = Random.Range(0, 8);
             int primoCrystalChance = Random.Range(0, 101);
             dt.SynergyShards[num] += 1;
-            dt.CostSynergy += (long)(dt.CostSynergy * 0.1);
+            dt.DroppedShards++; ;
+            if (dt.DroppedShards % 100 == 0) CalculateShardPrice();
             EventManager.OnChangeSynergy();
             gh.GenerateRandomShardInScene(num);
             gh.GenerateRandomPrimoInScene(primoCrystalChance);
@@ -55,5 +57,9 @@ public class GameManager : MonoBehaviour
             EventManager.OnChangeSynergy();
             time = 1.0f;
         }
+    }
+    private void CalculateShardPrice()
+    {
+        dt.CostSynergy += dt.DroppedShards/10;
     }
 }

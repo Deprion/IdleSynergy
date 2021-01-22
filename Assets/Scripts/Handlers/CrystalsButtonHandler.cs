@@ -20,7 +20,7 @@ public class CrystalsButtonHandler : MonoBehaviour
     {
         dt = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataManager>();
         gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        int yPos = 300;
+        int yPos = 225;
         for (int i = 0; i < 2; i++)
         {
             yPos -= 150;

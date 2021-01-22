@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class TextManager : MonoBehaviour
 {
     public Text AmountSynergy;
+    public Slider AmountMining;
     private CrystalsButtonHandler crButtonHandler;
     private DataManager dt;
     private void Start()
@@ -13,6 +14,8 @@ public class TextManager : MonoBehaviour
         dt = objManager.GetComponent<DataManager>();
         crButtonHandler = objHandler.GetComponent<CrystalsButtonHandler>();
         AmountSynergy.text = dt.Synergy.ToString();
+        AmountMining.maxValue = dt.MiningExp.Limit;
+        AmountMining.value = dt.MiningExp.Current;
         for (int i = 0; i < 8; i++)
         {
             crButtonHandler.CrystalsAmount[i].text = dt.SynergyCrystals[i].ToString();
@@ -27,5 +30,9 @@ public class TextManager : MonoBehaviour
     public void ChangeSynergyValue()
     {
         AmountSynergy.text = dt.Synergy.ToString();
+    }
+    public void ChangeMiningValue()
+    {
+        AmountMining.value = dt.MiningExp.Current;
     }
 }
