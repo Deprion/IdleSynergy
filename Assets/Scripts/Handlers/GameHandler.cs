@@ -28,12 +28,8 @@ public class GameHandler : MonoBehaviour
         currentShardDropped++;
         if (currentShardDropped >= 10) currentShardDropped = 0;
     }
-    public void GenerateRandomPrimoInScene(int chance)
+    public void GenerateRandomPrimoInScene()
     {
-        if (chance >= 95)
-        {
-            shardsDrop[10].GetComponent<ShardDropContainer>().Drop(shardsSprites[8]);
-            gm.AddPrimo(1);
-        }
+        shardsDrop[10].GetComponent<ShardDropContainer>().Drop(shardsSprites[8]);
     }
 }

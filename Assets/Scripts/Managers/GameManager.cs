@@ -30,18 +30,19 @@ public class GameManager : MonoBehaviour
     }
     public void RandomShard()
     {
-        if (dt.Synergy >= dt.CostSynergy)
+        dt.Synergy -= dt.CostSynergy;
+        int num = Random.Range(0, 8);
+        int primoCrystalChance = Random.Range(0, 101);
+        dt.SynergyShards[num] += 1;
+        dt.DroppedShards++;
+        if (primoCrystalChance <= dt.DropChancePrimo)
         {
-            dt.Synergy -= dt.CostSynergy;
-            int num = Random.Range(0, 8);
-            int primoCrystalChance = Random.Range(0, 101);
-            dt.SynergyShards[num] += 1;
-            dt.DroppedShards++; ;
-            if (dt.DroppedShards % 100 == 0) CalculateShardPrice();
-            EventManager.OnChangeSynergy();
-            gh.GenerateRandomShardInScene(num);
-            gh.GenerateRandomPrimoInScene(primoCrystalChance);
+            AddPrimo(1);
+            gh.GenerateRandomPrimoInScene();
         }
+        if (dt.DroppedShards % 100 == 0) CalculateShardPrice();
+        EventManager.OnChangeSynergy();
+        gh.GenerateRandomShardInScene(num);
     }
     private void Update()
     {

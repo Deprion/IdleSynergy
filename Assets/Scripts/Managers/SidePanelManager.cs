@@ -5,10 +5,10 @@ public class SidePanelManager : MonoBehaviour
     public RectTransform LeftPanel, RightPanel;
     private Vector2 leftTarget, rightTarget;
     private float speed = 3000;
-    private currentState state = new currentState();
-    enum currentState
-    { 
-        both,
+    public static currentState state = new currentState();
+    public enum currentState
+    {
+        middle,
         left,
         right
     }
@@ -16,14 +16,14 @@ public class SidePanelManager : MonoBehaviour
     {
         leftTarget = LeftPanel.anchoredPosition;
         rightTarget = RightPanel.anchoredPosition;
-        state = currentState.both;
+        state = currentState.middle;
     }
     void Update()
     {
         MoveMenu();
         if (Input.GetKeyDown(KeyCode.D))
         {
-            if (state == currentState.both)
+            if (state == currentState.middle)
             {
                 state = currentState.right;
                 rightTarget = new Vector2(-RightPanel.sizeDelta.x / 2,
@@ -33,7 +33,7 @@ public class SidePanelManager : MonoBehaviour
             }
             else if (state == currentState.left)
             {
-                state = currentState.both;
+                state = currentState.middle;
                 leftTarget = new Vector2(-LeftPanel.sizeDelta.x / 2,
                     LeftPanel.anchoredPosition.y);
                 rightTarget = new Vector2(RightPanel.sizeDelta.x / 2,
@@ -42,7 +42,7 @@ public class SidePanelManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (state == currentState.both)
+            if (state == currentState.middle)
             {
                 state = currentState.left;
                 leftTarget = new Vector2(LeftPanel.sizeDelta.x / 2,
@@ -52,7 +52,7 @@ public class SidePanelManager : MonoBehaviour
             }
             else if (state == currentState.right)
             {
-                state = currentState.both;
+                state = currentState.middle;
                 leftTarget = new Vector2(-LeftPanel.sizeDelta.x / 2,
                     LeftPanel.anchoredPosition.y);
                 rightTarget = new Vector2(RightPanel.sizeDelta.x / 2,

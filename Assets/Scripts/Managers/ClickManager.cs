@@ -15,8 +15,17 @@ public class ClickManager : MonoBehaviour
     }
     public void ClickShards()
     {
-        if(dataManager.Synergy >= dataManager.CostSynergy &&
-            dataManager.MiningExp + dataManager.MiningPower) gameManager.RandomShard();
-        EventManager.OnChaneMiningExp();
+        if (dataManager.Synergy >= dataManager.CostSynergy &&
+            dataManager.MiningExp.AmountOfOverFlow
+            (dataManager.MiningExp, dataManager.MiningPower) > 0)
+        {
+            dataManager.MiningExp += dataManager.MiningPower;
+            gameManager.RandomShard();
+            EventManager.OnChaneMiningExp();
+        }
+        else if (dataManager.Synergy >= dataManager.CostSynergy)
+        {
+            dataManager.MiningExp += dataManager.MiningPower;
+        }
     }
 }
