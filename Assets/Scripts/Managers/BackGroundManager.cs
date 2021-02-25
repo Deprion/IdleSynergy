@@ -26,7 +26,7 @@ public class BackGroundManager : MonoBehaviour
                     R--;
                     G--;
                     B--;
-                    if (R <= 160) check = false;
+                    if (R <= 100) check = false;
                 }
                 else
                 {

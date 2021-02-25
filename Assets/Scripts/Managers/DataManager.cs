@@ -12,7 +12,7 @@ public class DataManager : MonoBehaviour
     public long[] SynergyCrystals;
     public long[] SynergyShards;
     public long[] CostSynergyCrystals;
-    public bool[] PurchasedLocation = new bool[9];
+    public bool[] PurchasedLocation;
     public double[,] ChanceCrystals;
     public DateTime FreeChest, PastTime;
     private string DataPath;
@@ -30,6 +30,7 @@ public class DataManager : MonoBehaviour
         public llong miningExp;
         public long[] synergyCrystals, synergyShards;
         public long[] costSynergyCrystals;
+        public bool[] purchasedLocation;
         public double[] chanceCrystals;
         public int rows, columns;
         public long freeChestTimeLeft, pastTime;
@@ -50,6 +51,7 @@ public class DataManager : MonoBehaviour
             synergyShards = dt.SynergyShards;
             costSynergyCrystals = dt.CostSynergyCrystals;
             dropChancePrimo = dt.DropChancePrimo;
+            purchasedLocation = dt.PurchasedLocation;
             chanceCrystals = TransformArray.TransformToOne(dt.ChanceCrystals);
             rows = dt.ChanceCrystals.GetUpperBound(0) + 1;
             columns = dt.ChanceCrystals.GetUpperBound(1) + 1;
@@ -77,6 +79,7 @@ public class DataManager : MonoBehaviour
             SynergyShards = data.synergyShards;
             CostSynergyCrystals = data.costSynergyCrystals;
             DropChancePrimo = data.dropChancePrimo;
+            PurchasedLocation = data.purchasedLocation;
             ChanceCrystals = TransformArray.TransformToTwo(data.chanceCrystals,
                 data.rows, data.columns);
             FreeChest = DateTime.FromFileTimeUtc(data.freeChestTimeLeft);
@@ -89,10 +92,9 @@ public class DataManager : MonoBehaviour
             CostSynergy = 10;
             DropChancePrimo = 5;
             MiningExp = new llong(0, 10);
+            PurchasedLocation = new bool[9];
             CostSynergyCrystals = new long[] { 10, 10, 10, 10, 10, 10, 10, 10 };
-            ChanceCrystals = new double[8, 3] { { 0, 0, 0.125 }, { 1, 0.125, 0.25 },
-            { 2, 0.25, 0.375 }, { 3, 0.375, 0.5 }, { 4, 0.5, 0.625 }, { 5, 0.625, 0.75 },
-            { 6, 0.75, 0.875 }, { 7, 0.825, 1 } };
+            ChanceCrystals = DropChanceCrystals.ChanceCrystals;
             FreeChest = DateTime.Now.AddMinutes(30);
         }
     }

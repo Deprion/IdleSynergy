@@ -10,38 +10,40 @@ public class MiningButtonHandler : MonoBehaviour
     private GameObject[] CavePreset = new GameObject[10];
     private GameObject[] DrillPreset = new GameObject[6];
     private GameObject[] PickaxePreset = new GameObject[6];
-    private DataManager dt;
     private MineManager mm;
-    private CrystalsButtonHandler cbh;
+    private Sprite[] spriteArray;
     private void Start()
     {
-        dt = GameObject.FindGameObjectWithTag("GameManager").GetComponent<DataManager>();
         mm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<MineManager>();
-        cbh = GetComponent<CrystalsButtonHandler>();
+        spriteArray = Resources.LoadAll<Sprite>("Images");
         List<GameObject> tempListCave = new List<GameObject>();
         List<GameObject> tempListDrill = new List<GameObject>();
         List<GameObject> tempListPickaxe = new List<GameObject>();
         int y = 300;
+        byte tempCount = 0;
         for (int i = 0; i < 3; i++)
         {
             int x = -175;
             for (int j = 0; j < 3; j++)
             {
-                tempListCave.Add(CreateButton(x, y, WorldButtonPrefab, true));
+                tempListCave.Add(CreateButton(x, y, tempCount, WorldButtonPrefab, true));
+                tempCount++;
                 x += 175;
             }
             y -= 175;
         }
-        tempListCave.Add(CreateButton(0, y, WorldButtonPrefab, true));
+        tempListCave.Add(CreateButton(0, y, tempCount, WorldButtonPrefab, true));
         CavePreset = tempListCave.ToArray();
         y = 300;
         for (int i = 0; i < 6; i++)
         {
-            tempListDrill.Add(CreateButton(0, y, LevelUpPrefab, false));
-            tempListPickaxe.Add(CreateButton(0, y, LevelUpPrefab, false));
+            tempListDrill.Add(CreateButton(0, y, tempCount, LevelUpPrefab, false));
+            tempListPickaxe.Add(CreateButton(0, y, tempCount, LevelUpPrefab, false));
         }
+        DrillPreset = tempListDrill.ToArray();
+        PickaxePreset = tempListPickaxe.ToArray();
     }
-    private GameObject CreateButton(int x, int y, GameObject prefab, bool IsMatrix)
+    private GameObject CreateButton(int x, int y, byte tempC, GameObject prefab, bool IsMatrix)
     {
         if (IsMatrix)
         {
@@ -49,6 +51,8 @@ public class MiningButtonHandler : MonoBehaviour
                         new Vector2(x, y), Quaternion.identity);
             obj.transform.SetParent(PanelParent.transform, false);
             obj.SetActive(false);
+            obj.GetComponent<Image>().sprite = spriteArray[tempC];
+            obj.GetComponent<Button>().onClick.AddListener( () => mm.ChangeWorld(tempC));
             return obj;
         }
         else
@@ -60,8 +64,49 @@ public class MiningButtonHandler : MonoBehaviour
             return obj;
         }
     }
-    private void OpenLocation(byte id)
+    private void SetArray(GameObject[] array, bool OnOrOff)
     {
-        
+        switch (OnOrOff)
+        {
+            case true:
+                {
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        array[i].SetActive(true);
+                    }
+                }
+                break;
+            case false:
+                {
+                    {
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            array[i].SetActive(false);
+                        }
+                    }
+                }
+                break;
+        }
+    }
+    public void OpenCavePreset()
+    {
+        SetArray(DrillPreset, false);
+        SetArray(PickaxePreset, false);
+        SetArray(CavePreset, true);
+        PanelParent.SetActive(true);
+    }
+    public void OpenDrillPreset()
+    {
+        SetArray(CavePreset, false);
+        SetArray(PickaxePreset, false);
+        SetArray(DrillPreset, true);
+        PanelParent.SetActive(true);
+    }
+    public void OpenPickaxePreset()
+    {
+        SetArray(CavePreset, false);
+        SetArray(DrillPreset, false);
+        SetArray(PickaxePreset, true);
+        PanelParent.SetActive(true);
     }
 }

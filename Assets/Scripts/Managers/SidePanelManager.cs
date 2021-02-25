@@ -21,6 +21,7 @@ public class SidePanelManager : MonoBehaviour
     void Update()
     {
         MoveMenu();
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.D))
         {
             if (state == currentState.middle)
@@ -59,6 +60,51 @@ public class SidePanelManager : MonoBehaviour
                     RightPanel.anchoredPosition.y);
             }
         }
+#endif
+#if UNITY_ANDROID
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.touches[0];
+            if (touch.deltaPosition.x > 75)
+            {
+                if (state == currentState.middle)
+                {
+                    state = currentState.right;
+                    rightTarget = new Vector2(-RightPanel.sizeDelta.x / 2,
+                        RightPanel.anchoredPosition.y);
+                    leftTarget = new Vector2(-LeftPanel.sizeDelta.x / 2,
+                        LeftPanel.anchoredPosition.y);
+                }
+                else if (state == currentState.left)
+                {
+                    state = currentState.middle;
+                    leftTarget = new Vector2(-LeftPanel.sizeDelta.x / 2,
+                        LeftPanel.anchoredPosition.y);
+                    rightTarget = new Vector2(RightPanel.sizeDelta.x / 2,
+                        RightPanel.anchoredPosition.y);
+                }
+            }
+            if (touch.deltaPosition.x < -75)
+            {
+                if (state == currentState.middle)
+                {
+                    state = currentState.left;
+                    leftTarget = new Vector2(LeftPanel.sizeDelta.x / 2,
+                        LeftPanel.anchoredPosition.y);
+                    rightTarget = new Vector2(RightPanel.sizeDelta.x / 2,
+                        RightPanel.anchoredPosition.y);
+                }
+                else if (state == currentState.right)
+                {
+                    state = currentState.middle;
+                    leftTarget = new Vector2(-LeftPanel.sizeDelta.x / 2,
+                        LeftPanel.anchoredPosition.y);
+                    rightTarget = new Vector2(RightPanel.sizeDelta.x / 2,
+                        RightPanel.anchoredPosition.y);
+                }
+            }
+        }
+#endif
     }
     private void MoveMenu()
     {
