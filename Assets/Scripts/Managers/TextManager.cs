@@ -20,6 +20,8 @@ public class TextManager : MonoBehaviour
         {
             crButtonHandler.CrystalsAmount[i].text = dt.SynergyCrystals[i].ToString();
         }
+        EventManager.OnChaneMiningExpEvent += ChangeMiningValue;
+        EventManager.OnChangeSynergyEvent += ChangeSynergyValue;
     }
     public void ChangeTextValues(int type)
     {

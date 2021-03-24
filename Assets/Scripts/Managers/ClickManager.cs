@@ -16,16 +16,16 @@ public class ClickManager : MonoBehaviour
     public void ClickShards()
     {
         if (dataManager.Synergy >= dataManager.CostSynergy &&
-            dataManager.MiningExp.AmountOfOverFlow
-            (dataManager.MiningExp, dataManager.MiningPower) > 0)
+            dataManager.MiningExp.AmountOfOverFlow(dataManager.MiningPower) > 0)
         {
             dataManager.MiningExp += dataManager.MiningPower;
-            gameManager.RandomShard();
             EventManager.OnChaneMiningExp();
+            gameManager.RandomShard();
         }
         else if (dataManager.Synergy >= dataManager.CostSynergy)
         {
             dataManager.MiningExp += dataManager.MiningPower;
+            EventManager.OnChaneMiningExp();
         }
     }
 }

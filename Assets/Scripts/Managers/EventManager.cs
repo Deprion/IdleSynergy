@@ -13,8 +13,6 @@ public class EventManager : MonoBehaviour
     {
         tm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<TextManager>();
         OnBuyEvent += tm.ChangeTextValues;
-        OnChangeSynergyEvent += tm.ChangeSynergyValue;
-        OnChaneMiningExpEvent += tm.ChangeMiningValue;
     }
     public static void OnBuy(int type)
     {

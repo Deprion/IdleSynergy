@@ -93,20 +93,20 @@ public class MiningButtonHandler : MonoBehaviour
         SetArray(DrillPreset, false);
         SetArray(PickaxePreset, false);
         SetArray(CavePreset, true);
-        PanelParent.SetActive(true);
+        PanelParent.SetActive(!PanelParent.activeSelf);
     }
     public void OpenDrillPreset()
     {
         SetArray(CavePreset, false);
         SetArray(PickaxePreset, false);
         SetArray(DrillPreset, true);
-        PanelParent.SetActive(true);
+        PanelParent.SetActive(!PanelParent.activeSelf);
     }
     public void OpenPickaxePreset()
     {
         SetArray(CavePreset, false);
         SetArray(DrillPreset, false);
         SetArray(PickaxePreset, true);
-        PanelParent.SetActive(true);
+        PanelParent.SetActive(!PanelParent.activeSelf);
     }
 }

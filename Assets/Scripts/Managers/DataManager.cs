@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System;
 using System.IO;
-using TintDomain;
+using ExtraTypes;
 
 public class DataManager : MonoBehaviour
 {
     public long Synergy, SynergyOnClick,
         PrimoCrystal, UniversalCrystal, UniversalShard, Gems,
         MiningPower, MiningLvl, CostSynergy, DroppedShards, DropChancePrimo;
-    public llong MiningExp { get; set; }
+    public LLong MiningExp { get; set; }
     public long[] SynergyCrystals;
     public long[] SynergyShards;
     public long[] CostSynergyCrystals;
@@ -27,7 +27,7 @@ public class DataManager : MonoBehaviour
         public long synergy, synergyOnClick, primoCrystal, universalCrystal,
             universalShard, gems, miningPower, miningLvl, costSynergy, droppedShards,
             dropChancePrimo;
-        public llong miningExp;
+        public LLong miningExp;
         public long[] synergyCrystals, synergyShards;
         public long[] costSynergyCrystals;
         public bool[] purchasedLocation;
@@ -91,7 +91,7 @@ public class DataManager : MonoBehaviour
             MiningPower = 1;
             CostSynergy = 10;
             DropChancePrimo = 5;
-            MiningExp = new llong(0, 10);
+            MiningExp = new LLong(0, 10);
             PurchasedLocation = new bool[9];
             CostSynergyCrystals = new long[] { 10, 10, 10, 10, 10, 10, 10, 10 };
             ChanceCrystals = DropChanceCrystals.ChanceCrystals;
