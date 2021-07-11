@@ -6,8 +6,9 @@ public class BackGroundManager : MonoBehaviour
     public GameObject ClickSynergyObj;
     private Image image;
     private byte R = 200, G = 242, B = 255;
-    private bool check = true;
-    private float waitTime = 0.2f;
+    private int index = 0;
+    [SerializeField]
+    private Color32[] arrayOfColors;
     private void Start()
     {
         image = ClickSynergyObj.GetComponent<Image>();
@@ -16,28 +17,11 @@ public class BackGroundManager : MonoBehaviour
 
     void Update()
     {
-        if (SidePanelManager.state == SidePanelManager.currentState.middle)
+        image.color = Color32.Lerp(image.color, arrayOfColors[index], 2 * Time.deltaTime);
+        if (image.color == arrayOfColors[index])
         {
-            waitTime -= Time.deltaTime;
-            if (waitTime <= 0)
-            {
-                if (check)
-                {
-                    R--;
-                    G--;
-                    B--;
-                    if (R <= 100) check = false;
-                }
-                else
-                {
-                    R++;
-                    G++;
-                    B++;
-                    if (R >= 200) check = true;
-                }
-                waitTime = 0.2f;
-            }
-            image.color = new Color32(R, G, B, 255);
+            index = ++index >= arrayOfColors.Length ? 0 : index;
+            print(index);
         }
     }
 }
